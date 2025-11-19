@@ -1,75 +1,174 @@
-# React + TypeScript + Vite
+# TechFlow - Task Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web de gestión de tareas y proyectos construida con React, TypeScript, Tailwind CSS y Radix UI.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 18+** - Biblioteca de interfaz de usuario
+- **TypeScript** - Tipado estático
+- **Vite** - Build tool y dev server
+- **Tailwind CSS** - Framework de estilos
+- **Radix UI** - Componentes UI accesibles y ligeros
+- **React Router** - Navegación
+- **Axios** - Cliente HTTP
 
-## React Compiler
+## 📋 Funcionalidades Implementadas
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### ✅ Autenticación
+- Login y Registro de usuarios
+- Gestión de JWT en localStorage
+- Rutas protegidas
+- Cierre de sesión
 
-Note: This will impact Vite dev & build performances.
+### ✅ Dashboard
+- Estadísticas de tareas (total, completadas, pendientes, vencidas)
+- Vista de tareas recientes
+- Acciones rápidas
 
-## Expanding the ESLint configuration
+### ✅ Gestión de Proyectos
+- Listar proyectos con paginación
+- Crear nuevo proyecto
+- Editar proyecto
+- Eliminar proyecto
+- Búsqueda por nombre
+- Estados: Activo, Completado, En Espera
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ✅ Gestión de Tareas
+- Listar todas las tareas
+- Crear nueva tarea
+- Editar tarea
+- Eliminar tarea
+- Cambiar estado de tarea (Por Hacer → En Progreso → Completado)
+- Filtros avanzados:
+  - Por estado (TODO, IN_PROGRESS, COMPLETED)
+  - Por prioridad (LOW, MEDIUM, HIGH, URGENT)
+  - Por proyecto
+- Asignar tareas a miembros del equipo
+- Fecha límite
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### ✅ Equipo
+- Ver miembros del equipo
+- Ver tareas asignadas a cada miembro
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Instalación y Configuración
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Requisitos Previos
+- Node.js 18+ instalado
+- npm o yarn
+
+### Pasos de Instalación
+
+1. **Clonar el repositorio**
+```bash
+git clone <url-del-repositorio>
+cd techflow-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Instalar dependencias**
+```bash
+npm install
 ```
+
+3. **Ejecutar en modo desarrollo**
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`
+
+### Scripts Disponibles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm run preview` - Preview de la build de producción
+- `npm run lint` - Ejecuta el linter
+
+## 🔑 Credenciales de Prueba
+
+Para probar la aplicación, primero debes registrarte en `/register` con:
+- Nombre completo
+- Email válido
+- Contraseña (mínimo 6 caracteres)
+
+Luego inicia sesión en `/login` con las credenciales que creaste.
+
+## 🌐 API Backend
+
+La aplicación consume la API REST de TechFlow:
+
+**URL Base:** `https://cs2031-2025-2-hackathon-2-backend-production.up.railway.app/v1`
+
+Todos los endpoints autenticados requieren el header:
+```
+Authorization: Bearer <jwt_token>
+```
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── components/
+│   ├── common/          # Componentes reutilizables (Button, Input, Modal, Card)
+│   └── auth/            # Componentes de autenticación (ProtectedRoute)
+├── pages/               # Páginas de la aplicación
+│   ├── LoginPage.tsx
+│   ├── RegisterPage.tsx
+│   ├── DashboardPage.tsx
+│   ├── ProjectsPage.tsx
+│   ├── TasksPage.tsx
+│   └── TeamPage.tsx
+├── services/            # Servicios de API
+│   ├── api.ts
+│   ├── authService.ts
+│   ├── projectService.ts
+│   ├── taskService.ts
+│   └── teamService.ts
+├── context/             # React Context
+│   └── AuthContext.tsx
+├── types/               # Definiciones de TypeScript
+│   └── index.ts
+├── utils/               # Utilidades y constantes
+│   └── constants.ts
+├── App.tsx              # Componente principal con routing
+└── main.tsx             # Entry point
+```
+
+## 🎨 Características de UI/UX
+
+- **Design System**: Colores primarios en azul, estados visuales claros
+- **Responsive**: Funciona en mobile, tablet y desktop
+- **Componentes Radix UI**: Accesibles, ligeros y personalizables
+- **Feedback Visual**: Loading states, confirmaciones, mensajes de error
+- **Navegación Intuitiva**: Header con menú persistente
+- **Modales**: Para creación y edición de recursos
+- **Badges**: Para estados y prioridades con códigos de color
+
+## 🚀 Deploy
+
+### Opción 1: Vercel
+
+1. Push tu código a GitHub
+2. Conecta tu repositorio en [Vercel](https://vercel.com)
+3. Deploy automático
+
+### Opción 2: Netlify
+
+1. Push tu código a GitHub
+2. Conecta tu repositorio en [Netlify](https://netlify.com)
+3. Build command: `npm run build`
+4. Publish directory: `dist`
+
+## 📝 Notas Adicionales
+
+- La aplicación usa Radix UI en lugar de librerías completas como Material-UI para mantener el bundle pequeño
+- Los tokens JWT se almacenan en localStorage
+- Los interceptores de Axios manejan automáticamente la autenticación y redirección en caso de token expirado
+- Todos los formularios incluyen validación básica
+
+## 👥 Equipo de Desarrollo
+
+Desarrollado como parte del Hackathon #2 de Desarrollo Basado en Plataformas (CS2031)
+
+---
+
+**Con ❤️ por el equipo de TechFlow**
